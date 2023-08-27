@@ -1,4 +1,4 @@
 {
-    "server_filepath": "./data/",
+    "server_filepath": "./data/udp_socket_file",
     "client_filepath": "./data/"
 }

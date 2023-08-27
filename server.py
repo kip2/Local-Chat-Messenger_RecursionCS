@@ -1,11 +1,23 @@
 import os
 import socket
+import json
 from chatMessage import createChatMessage
 
 def serverSocketUDP():
+    
     sock = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
 
-    server_address = './data/udp_socket_file'
+    # config.jsonよりパイプのアドレスの読みこみ
+    config = json.load(open("config.json"))
+    filepath = config['server_filepath']
+    # すでにパイプが存在する場合は削除
+    if os.path.exists(filepath):
+        os.remove(filepath)
+    # 名前付きパイプの作成
+    os.mkfifo(filepath)
+
+    server_address = filepath
+    #server_address = './data/udp_socket_file'
 
     try:
         os.unlink(server_address)
