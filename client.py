@@ -8,6 +8,9 @@ def waitingMessage():
     print("   .   ")
     print("   .   ")
     sleep(1)
+    print("Receive message!")
+    print()
+    sleep(1)
 
 def clientSocketUDP(name, message):
 
