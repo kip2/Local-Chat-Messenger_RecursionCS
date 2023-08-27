@@ -1,3 +1,4 @@
+import json
 import socket
 import os
 from time import sleep
@@ -16,9 +17,19 @@ def clientSocketUDP(name, message):
 
     sock = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
 
-    server_address = './data/udp_socket_file'
+    # config.jsonよりパイプのアドレスの読みこみ
+    config = json.load(open("config.json"))
+    server_filepath = config['server_filepath']
+    client_filepath = config['client_filepath']
 
-    address = './data/udp_client_socket_file'
+
+    server_address = server_filepath
+
+    # すでにパイプが存在する場合は削除
+    if os.path.exists(client_filepath):
+        os.remove(client_filepath)
+
+    address = client_filepath
 
     sock.bind(address)
 

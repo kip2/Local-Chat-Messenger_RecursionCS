@@ -13,12 +13,11 @@ def serverSocketUDP():
     # すでにパイプが存在する場合は削除
     if os.path.exists(filepath):
         os.remove(filepath)
-    # 名前付きパイプの作成
+    # 名前付きパイプの作成jku
     os.mkfifo(filepath)
 
     server_address = filepath
-    #server_address = './data/udp_socket_file'
-
+    
     try:
         os.unlink(server_address)
     except FileNotFoundError:
@@ -50,7 +49,9 @@ def serverSocketUDP():
                 sent = sock.sendto(message, address)
                 print('sent {} bytes back to {}'.format(sent, address))
     except KeyboardInterrupt:
+        os.remove(filepath)
         pass
+    os.remove(filepath)
 
 
 if __name__ == "__main__":
