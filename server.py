@@ -13,7 +13,7 @@ def serverSocketUDP():
     # すでにパイプが存在する場合は削除
     if os.path.exists(filepath):
         os.remove(filepath)
-    # 名前付きパイプの作成jku
+    # 名前付きパイプの作成
     os.mkfifo(filepath)
 
     server_address = filepath
