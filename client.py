@@ -3,7 +3,7 @@ import json
 import os
 import sys
 
-def socketUDP(message):
+def clientSocketUDP(message):
     sock = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
 
     server_address = './data/udp_socket_file'
@@ -25,11 +25,3 @@ def socketUDP(message):
         print("closing socket")
         sock.close()
         os.remove(address)
-
-if __name__ == "__main__":
-    while True:
-        message = input("Write your message!:> ")
-        if message == "exit":
-            sys.exit()
-        else: 
-            socketUDP(message)
