@@ -1,6 +1,7 @@
 import json
 import socket
 import os
+import sys
 from time import sleep
 from chatMessage import createClientMessage
 
@@ -59,3 +60,30 @@ def clientSocketUDP(name, message):
     finally:
         sock.close()
         os.remove(address)
+
+def runClient():
+    print("=========================")
+    print("-------------------------")
+    print("        CHAT  ROOM       ")
+    print("-------------------------")
+    print("=========================")
+    print()
+
+    print("Welcome to CHAT ROOM... ")
+    print()
+    sleep(1)
+
+    name = input("Enter your name:")
+    print("Your name is:", name)
+    sleep(1)
+
+    while True:
+        message = input("Please write your message!: ")
+        print("Your message is:", message)
+        sleep(1)
+
+        if message == "exit":
+            clientSocketUDP(name, message)
+            sys.exit()
+        else: 
+            clientSocketUDP(name, message)

@@ -1,31 +1,11 @@
-import sys
-from client import clientSocketUDP
-from server import serverSocketUDP
-from time import sleep
+import os
+from client import runClient
+from server import runServer
 
 if __name__ == "__main__":
-    print("=========================")
-    print("-------------------------")
-    print("        CHAT  ROOM       ")
-    print("-------------------------")
-    print("=========================")
-    print()
+    pid = os.fork()
 
-    print("Welcome to CHAT ROOM... ")
-    print()
-    sleep(1)
-
-    name = input("Enter your name:")
-    print("Your name is:", name)
-    sleep(1)
-
-    while True:
-        message = input("Please write your message!: ")
-        print("Your message is:", message)
-        sleep(1)
-
-        if message == "exit":
-            clientSocketUDP(name, message)
-            sys.exit()
-        else: 
-            clientSocketUDP(name, message)
+    if pid == 0:
+        runServer()
+    else:
+        runClient()

@@ -27,32 +27,33 @@ def serverSocketUDP():
 
     sock.bind(server_address)
 
-    # 終了フラグ
-    FLAG = True
 
     try:
-        while FLAG:
+        while True:
             print("\nwaiting to receive message")
             # 受け取ったデータとパイプのアドレス
             data, address = sock.recvfrom(4096)
 
-            # exitなら終了フラグを立てる
-            if data == b"exit": FLAG = False
-
-            # 受け取ったデータのバイト値とパイプのアドレス表示
-            print('received {} bytes from {}'.format(len(data), address))
-            
-            # chat message
-            message = createChatMessage().encode("utf-8")
-
-            if data:
-                sent = sock.sendto(message, address)
+            # exitなら終了する
+            if data == b"exit": 
+                sent = sock.sendto(data, address)
                 print('sent {} bytes back to {}'.format(sent, address))
+            else:
+                # 受け取ったデータのバイト値とパイプのアドレス表示
+                print('received {} bytes from {}'.format(len(data), address))
+                
+                # chat message
+                message = createChatMessage().encode("utf-8")
+                if data:
+                    sent = sock.sendto(message, address)
+                    print('sent {} bytes back to {}'.format(sent, address))
+
     except KeyboardInterrupt:
         os.remove(filepath)
         pass
     os.remove(filepath)
+    return
 
-
-if __name__ == "__main__":
+def runServer():
     serverSocketUDP()
+    
